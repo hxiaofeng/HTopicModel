@@ -29,11 +29,11 @@ def tfidf_matrix(corpus_file, dictionary_file, out_model_file, out_matrix_file):
 
 
 if __name__ == '__main__':
-    frequence_matrix('../data/sougou_corpus_token_p',
-                     '../data/models/sougou.dict',
-                     '../data/models/sougou_fre_matrix.mm')
+    frequence_matrix('../data/wikicorpus/wiki_corpus_token_200k',
+                     '../data/wiki_models/200k/wiki.dict',
+                     '../data/wiki_models/200k/wiki_fre_matrix.mm')
 
-    tfidf_matrix('../data/models/sougou_fre_matrix.mm',
-                 '../data/models/sougou.dict',
-                 '../data/models/sougou_tfidf_model.md',
-                 '../data/models/sougou_tfidf_matrix.mm')
+    tfidf_matrix('../data/wiki_models/200k/wiki_fre_matrix.mm',
+                 '../data/wiki_models/200k/wiki.dict',
+                 '../data/wiki_models/200k/wiki_tfidf_model.md',
+                 '../data/wiki_models/200k/wiki_tfidf_matrix.mm')

@@ -6,10 +6,10 @@ from gensim import models
 
 
 # 对语料库的tfidf矩阵进行LDA主题分析
-def LDA_analysis(corpus_file, dictionary_file, out_model_file, num_topics=10):
+def LDA_analysis(corpus_file, dictionary_file, out_model_file, num_topics=20):
     corpus = corpora.MmCorpus(corpus_file)
     dictionary = corpora.Dictionary.load(dictionary_file)
-    lda = models.LdaMulticore(corpus, num_topics=num_topics, id2word=dictionary, workers=10)
+    lda = models.LdaMulticore(corpus, num_topics=num_topics, id2word=dictionary, workers=20)
     lda.save(out_model_file)
 
 
@@ -30,7 +30,7 @@ def get_topics_terms(lda_model_file):
 
 
 if __name__ == '__main__':
-    LDA_analysis('../data/models/sougou_tfidf_matrix.mm',
-                 '../data/models/sougou.dict',
-                 '../data/models/sougou_lda_100_model.md',
+    LDA_analysis('../data/wiki_models/200k/wiki_tfidf_matrix.mm',
+                 '../data/wiki_models/200k/wiki.dict',
+                 '../data/wiki_models/200k/wiki_lda_100_model.md',
                  100)

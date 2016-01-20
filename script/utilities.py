@@ -29,14 +29,15 @@ class Tree(object):
                     stack.append(new_path)
             else:
                 topics.append(path)
-        return topics.reverse()
+        topics.reverse()
+        return topics
 
     # 将树保存在文本文件中
     def save_to_txt(self, filename):
         topics = self.get_topics_with_path()
         out = open(filename, 'wb')
         for t in topics:
-            out.write('\t'.join([str(p) for p in t[:-1]]) + '\n')
+            out.write('\t'.join([str(p) for p in t[:-1]]) + '\t' + str(len(t[-1])) + '\n')
             out.write('\t'.join(t[-1]).encode('utf8') + '\n')
             out.write('\n')
 

@@ -71,6 +71,48 @@ def merge_corpus_in_one_file():
     out.close()
 
 
+# 提取wiki百科的中文语料，每篇文章存为一行，并去除多余的符号
+def wiki_corpus(in_file, out_file):
+    start_pt = re.compile(ur'<doc.*>')
+    filter_pt = re.compile(ur'[^\u4e00-\u9fa5\uff00-\uffef\u3000-\u303f.]')
+    out = open(out_file, 'wb')
+    doc = ''
+    for line in open(in_file):
+        text = line.decode('utf8').strip()
+        if not start_pt.match(text):
+            doc += text
+        else:
+            doc = filter_pt.sub('', doc).strip()
+            if doc:
+                out.write(doc.encode('utf8') + '\n')
+            doc = ''
+    out.close()
+
+
+# 将文件按行切分为多个文件
+def partition(in_file, parts=1):
+    lines = open(in_file).readlines()
+    size = len(lines)
+    part_size = size / parts + 1
+    start = 0
+    for i in range(parts):
+        out_file = in_file + '_' + str(i)
+        out = open(out_file, 'wb')
+        part_lines = lines[start:start + part_size]
+        out.writelines(part_lines)
+        out.close()
+        start += part_size
+
+
+# 将目录下的多个文件合并为一个文件
+def merge(in_dir, out_file):
+    files = os.listdir(in_dir)
+    out = open(out_file, 'wb')
+    for f in files:
+        for line in open(os.path.join(in_dir, f)):
+            out.write(line)
+
+
 # 对文本进行断句，输入的文本必须是Unicode编码的
 def sent_tokenizer(text):
     start = 0
@@ -104,9 +146,53 @@ def tokenizer_per_sent(in_file, out_file):
             if words:
                 out.write('\t'.join(words).encode('utf8') + '\n')
         count += 1
-        if count % 1000 == 0:
+        if count % 10000 == 0:
             print 'processed: ' + str(count)
     out.close()
+
+
+# 多进程版本：对文档进行分词，无词性过滤，每个句子存为一行
+def run_token_s(args):
+    lines = args[0]
+    pid = args[1]
+    print 'run process ' + str(pid) + ', tasks: ' + str(len(lines))
+    results = []
+    count = 0
+    for line in lines:
+        text = line.strip().decode('utf8')
+        sents = sent_tokenizer(text)
+        word_list = []
+        for sentence in sents:
+            if len(sentence.strip()) < 2:
+                continue
+            word_list += jieba.cut(sentence.strip())
+            if word_list:
+                results.append(word_list)
+        count += 1
+        if count % 1000 == 0:
+            print 'process ' + str(pid) + ': ' + str(count) + '/' +str(len(lines))
+    print 'process ' + str(pid) + 'end!'
+    return results
+
+
+def paralleled_tokenizer_s(in_file, out_file, process_num=1):
+    all_lines = open(in_file).readlines()
+    step = int(len(all_lines) / process_num) + 1
+    lines_list = []
+    start = 0
+    while start < len(all_lines):
+        lines_list.append(all_lines[start: start + step])
+        start += step
+    pool = Pool(process_num)
+    pids = range(len(lines_list))
+    results = pool.map(run_token, zip(lines_list, pids))
+    print 'writing data ...'
+    out = open(out_file, 'wb')
+    for r in results:
+        for token_list in r:
+            out.write('\t'.join([token[0] for token in token_list]).encode('utf8') + '\n')
+    out.close()
+    print 'end'
 
 
 # 分词的多进程版本
@@ -147,15 +233,30 @@ def paralleled_tokenizer(in_file, out_file, process_num=1):
     pool = Pool(process_num)
     pids = range(len(lines_list))
     results = pool.map(run_token, zip(lines_list, pids))
+    print 'writing data ...'
     out = open(out_file, 'wb')
     for r in results:
         for token_list in r:
             out.write('\t'.join([token[0] for token in token_list]).encode('utf8') + '\n')
     out.close()
+    print 'end'
+
+
+def token_files(in_dir, out_dir):
+    files = os.listdir(in_dir)
+    for f in files:
+        in_file = os.path.join(in_dir, f)
+        out_file = os.path.join(out_dir, f + '_p')
+        paralleled_tokenizer(in_file, out_file, 20)
 
 
 if __name__ == '__main__':
-    #  merge_corpus()
+    # merge_corpus()
     # merge_corpus_in_one_file()
-    paralleled_tokenizer('../data/sougou_corpus_all', '../data/sougou_corpus_token_p', 10)
-    # tokenizer_per_sent('../data/sougou_corpus_all', '../data/sougou_corpus_token_all')
+    # paralleled_tokenizer('../data/wikicorpus/parts/wiki_corpus_4', '../data/wikicorpus/token/wiki_corpus_4_p', 20)
+    tokenizer_per_sent('../data/wikicorpus/wiki_corpus', '../data/wikicorpus/wiki_corpus_token_s')
+    # paralleled_tokenizer_s('../data/wikicorpus/wiki_corpus', '../data/wikicorpus/wiki_corpus_token_s', 20)
+    # wiki_corpus('../data/wikicorpus/wiki_chs', '../data/wikicorpus/wiki_corpus')
+    # partition('../data/wikicorpus/wiki_corpus', 5)
+    # token_files('../data/wikicorpus/parts', '../data/wikicorpus/token')
+    # merge('../data/wikicorpus/token', '../data/wikicorpus/wiki_corpus_token_p')
