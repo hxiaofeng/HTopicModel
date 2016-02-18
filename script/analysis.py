@@ -33,6 +33,11 @@ def cluster(matrix, dictionary, n_clusters=2, n_jobs=1):
     return clusters
 
 
+# 计算簇的凝聚度
+def cohesion(matrix, center):
+
+
+
 # 对lda分析生成的词集进行基于词向量的聚类分析
 def hierarchical_topic_analyse(lda_model_file, word2vec_model_file, k=1):
     topic2terms = LDA.get_topics_terms(lda_model_file)
