@@ -26,7 +26,7 @@ def get_topics_terms(lda_model_file):
     for term, topics in term2topics.iteritems():
         max_topic = max(topics, key=lambda x: x[1])[0]
         topic2terms.setdefault(max_topic, []).append(term)
-    return topic2terms
+    return topic2terms.items()
 
 
 if __name__ == '__main__':
