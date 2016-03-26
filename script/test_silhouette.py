@@ -17,4 +17,4 @@ def test():
     matrix = matrix.toarray()
     labels = k_model.labels_
     sil = metrics.silhouette_samples(matrix, labels)
-    return sil, matrix, labels
+    return sil, matrix, labels, k_model

@@ -1,0 +1,15 @@
+/usr/lib/python2.7/dist-packages/numpy/core/_methods.py:55: RuntimeWarning: Mean of empty slice.
+  warnings.warn("Mean of empty slice.", RuntimeWarning)
+/usr/lib/python2.7/dist-packages/numpy/core/_methods.py:67: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+0.0281243507462
+0.0268655209546
+0.0300080259488
+0.0294114894467
+0.0320357938846
+0.0330273075143
+0.0336882084119
+0.029646600583
+0.0344180521556
+0.0297669418297
+mean 0.0306992291475

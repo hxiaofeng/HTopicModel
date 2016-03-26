@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+import pickle
+from sklearn.cluster import KMeans
+from sklearn import metrics
+
 
 # Tree类，用来存储主题树，树的叶结点为词集
 class Tree(object):
@@ -41,6 +45,16 @@ class Tree(object):
             out.write('\t'.join(t[-1]).encode('utf8') + '\n')
             out.write('\n')
 
+    # 将数据保存为文件
+    def save(self, filename):
+        topics = self.get_topics_with_path()
+        pickle.dump(topics, open(filename, 'w'))
+
+    # 从文件中导入数据
+    def load(self, filename):
+        topics = pickle.load(open(filename))
+        self.root = self.gen_topic_tree(topics)
+
     # 利用带路径的主题列表构建主题树
     @staticmethod
     def gen_topic_tree(topics):
@@ -53,3 +67,18 @@ class Tree(object):
             assert t[-2] not in root
             root[t[-2]] = t[-1]
         return tree
+
+
+# 用轮廓系数估计k-means聚类个数
+def n_clusters_analysis(matrix, max_n=100):
+    for i in range(2, max_n + 1):
+        model = KMeans(i, n_jobs=10)
+        model.fit(matrix)
+        score = metrics.silhouette_score(matrix, model.labels_)
+        print score
+
+
+# 计算簇的凝聚度
+def cohesion(matrix, center):
+    distances = metrics.pairwise.pairwise_distances(matrix, center)
+    return distances.mean()

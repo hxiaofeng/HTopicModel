@@ -1,0 +1,89 @@
+Traceback (most recent call last):
+  File "doc_cluster_compare.py", line 4, in <module>
+    from gensim import corpora
+  File "/usr/local/lib/python2.7/dist-packages/gensim/__init__.py", line 6, in <module>
+    from gensim import parsing, matutils, interfaces, corpora, models, similarities, summarization
+  File "/usr/local/lib/python2.7/dist-packages/gensim/parsing/__init__.py", line 7, in <module>
+    from .preprocessing import *
+  File "/usr/local/lib/python2.7/dist-packages/gensim/parsing/preprocessing.py", line 10, in <module>
+    from gensim import utils
+  File "/usr/local/lib/python2.7/dist-packages/gensim/utils.py", line 48, in <module>
+    from smart_open import smart_open
+  File "/usr/local/lib/python2.7/dist-packages/smart_open/__init__.py", line 1, in <module>
+    from .smart_open_lib import *
+  File "/usr/local/lib/python2.7/dist-packages/smart_open/smart_open_lib.py", line 35, in <module>
+    from boto.compat import BytesIO, urlsplit, six
+  File "/usr/local/lib/python2.7/dist-packages/boto/__init__.py", line 50, in <module>
+    platform.system(),
+  File "/usr/lib/python2.7/platform.py", line 1333, in system
+    return uname()[0]
+  File "/usr/lib/python2.7/platform.py", line 1300, in uname
+    processor = _syscmd_uname('-p','')
+  File "/usr/lib/python2.7/platform.py", line 1034, in _syscmd_uname
+    output = string.strip(f.read())
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "doc_cluster_compare.py", line 61, in <module>
+    hie_main()
+  File "doc_cluster_compare.py", line 49, in hie_main
+    matrix, labels = hierarchical_clustering(corpus_fn, 400, 'average')
+  File "doc_cluster_compare.py", line 28, in hierarchical_clustering
+    knn_graph = kneighbors_graph(new_corpus, 100, metric='cosine')
+  File "/usr/local/lib/python2.7/dist-packages/sklearn/neighbors/graph.py", line 109, in kneighbors_graph
+    n_neighbors, metric=metric, p=p, metric_params=metric_params
+  File "/usr/local/lib/python2.7/dist-packages/sklearn/neighbors/unsupervised.py", line 116, in __init__
+    metric_params=metric_params, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/sklearn/neighbors/base.py", line 154, in _init_params
+    % (metric, algorithm))
+ValueError: Metric 'cosine' not valid for algorithm 'auto'
+/usr/local/lib/python2.7/dist-packages/sklearn/neighbors/graph.py:36: DeprecationWarning: The behavior of 'kneighbors_graph' when mode='connectivity' will change in version 0.18. Presently, the nearest neighbor of each sample is the sample itself. Beginning in version 0.18, the default behavior will be to exclude each sample from being its own nearest neighbor. To maintain the current behavior, set include_self=True.
+  "behavior, set include_self=True.", DeprecationWarning)
+/usr/lib/python2.7/dist-packages/numpy/core/_methods.py:55: RuntimeWarning: Mean of empty slice.
+  warnings.warn("Mean of empty slice.", RuntimeWarning)
+/usr/lib/python2.7/dist-packages/numpy/core/_methods.py:67: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+-0.0885166791358
+-0.0961108124312
+-0.0834245508516
+-0.0864793045702
+-0.0968993262842
+-0.100986190584
+-0.0972578640067
+-0.0906338929582
+-0.100603095469
+-0.0874793211894
+mean -0.092839103748
+/usr/local/lib/python2.7/dist-packages/sklearn/neighbors/graph.py:36: DeprecationWarning: The behavior of 'kneighbors_graph' when mode='connectivity' will change in version 0.18. Presently, the nearest neighbor of each sample is the sample itself. Beginning in version 0.18, the default behavior will be to exclude each sample from being its own nearest neighbor. To maintain the current behavior, set include_self=True.
+  "behavior, set include_self=True.", DeprecationWarning)
+/usr/lib/python2.7/dist-packages/numpy/core/_methods.py:55: RuntimeWarning: Mean of empty slice.
+  warnings.warn("Mean of empty slice.", RuntimeWarning)
+/usr/lib/python2.7/dist-packages/numpy/core/_methods.py:67: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+-0.0520048391816
+-0.0467172613863
+-0.0479345105034
+-0.0477503832187
+-0.0483839327646
+-0.0556638603808
+-0.0485350601886
+-0.0502909116922
+-0.0477195314302
+-0.0475569863269
+mean -0.0492557277073
+/usr/local/lib/python2.7/dist-packages/sklearn/neighbors/graph.py:36: DeprecationWarning: The behavior of 'kneighbors_graph' when mode='connectivity' will change in version 0.18. Presently, the nearest neighbor of each sample is the sample itself. Beginning in version 0.18, the default behavior will be to exclude each sample from being its own nearest neighbor. To maintain the current behavior, set include_self=True.
+  "behavior, set include_self=True.", DeprecationWarning)
+/usr/lib/python2.7/dist-packages/numpy/core/_methods.py:55: RuntimeWarning: Mean of empty slice.
+  warnings.warn("Mean of empty slice.", RuntimeWarning)
+/usr/lib/python2.7/dist-packages/numpy/core/_methods.py:67: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+0.0020768915042
+0.00071799448321
+0.002896992355
+0.00292616822176
+-0.000339088243574
+-0.000752031212439
+0.00400977941846
+-4.06581345214e-05
+0.00220981932927
+0.00215166654097
+mean 0.00158575342623
