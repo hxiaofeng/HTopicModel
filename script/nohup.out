@@ -87,3 +87,123 @@ mean -0.0492557277073
 0.00220981932927
 0.00215166654097
 mean 0.00158575342623
+/usr/local/lib/python2.7/dist-packages/sklearn/neighbors/graph.py:36: DeprecationWarning: The behavior of 'kneighbors_graph' when mode='connectivity' will change in version 0.18. Presently, the nearest neighbor of each sample is the sample itself. Beginning in version 0.18, the default behavior will be to exclude each sample from being its own nearest neighbor. To maintain the current behavior, set include_self=True.
+  "behavior, set include_self=True.", DeprecationWarning)
+/usr/lib/python2.7/dist-packages/numpy/core/_methods.py:55: RuntimeWarning: Mean of empty slice.
+  warnings.warn("Mean of empty slice.", RuntimeWarning)
+/usr/lib/python2.7/dist-packages/numpy/core/_methods.py:67: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+-0.0478416822136
+-0.0490920860761
+-0.0454339158817
+-0.0470111159617
+-0.0503635596615
+-0.0445982513077
+-0.0466737355384
+-0.0467102610454
+-0.0519296604274
+-0.0489643264569
+mean -0.0478618594571
+17891
+20253
+49389
+49958
+50020
+52961
+53104
+68539
+76152
+evaluation, lda topic: 10, depth: 2
+-0.000794860665691
+-0.000982147452871
+-0.00135238097407
+-0.00130859387374
+-0.00064217872466
+-0.00121720454244
+-0.00103153978906
+-0.0013381805838
+-0.00106965312624
+-0.00121531394018
+-0.00116605255116
+-0.00119387738271
+-0.00093342560013
+-0.00113949870665
+-0.000878628734958
+-0.000599828589289
+mean -0.00105396032735
+8300
+11772
+22498
+68539
+evaluation, lda topic: 8, depth: 2
+0.000764300213262
+0.00151499275137
+0.00106926857602
+0.00113626647608
+0.0014088292466
+0.00118423992738
+0.00108325107976
+0.00102973070822
+0.00131810096544
+0.00142550388893
+0.0011862648119
+0.00133866196281
+0.000857081739074
+0.00158093543568
+0.00129037283308
+0.00100984992948
+mean 0.00119985315907
+/usr/local/lib/python2.7/dist-packages/sklearn/neighbors/graph.py:36: DeprecationWarning: The behavior of 'kneighbors_graph' when mode='connectivity' will change in version 0.18. Presently, the nearest neighbor of each sample is the sample itself. Beginning in version 0.18, the default behavior will be to exclude each sample from being its own nearest neighbor. To maintain the current behavior, set include_self=True.
+  "behavior, set include_self=True.", DeprecationWarning)
+Traceback (most recent call last):
+  File "doc_cluster_compare.py", line 61, in <module>
+    hie_main()
+  File "doc_cluster_compare.py", line 49, in hie_main
+    matrix, labels = hierarchical_clustering(corpus_fn, 24, 'complete')
+  File "doc_cluster_compare.py", line 25, in hierarchical_clustering
+    corpus = matutils.corpus2csc(corpus, num_terms=corpus.num_terms).transpose()
+  File "/usr/local/lib/python2.7/dist-packages/gensim/matutils.py", line 100, in corpus2csc
+    for docno, doc in enumerate(corpus):
+  File "/usr/local/lib/python2.7/dist-packages/gensim/corpora/mmcorpus.py", line 36, in __iter__
+    for doc_id, doc in super(MmCorpus, self).__iter__():
+  File "/usr/local/lib/python2.7/dist-packages/gensim/matutils.py", line 634, in __iter__
+    docid, termid, val = utils.to_unicode(line).split()  # needed for python3
+KeyboardInterrupt
+/usr/local/lib/python2.7/dist-packages/sklearn/neighbors/graph.py:36: DeprecationWarning: The behavior of 'kneighbors_graph' when mode='connectivity' will change in version 0.18. Presently, the nearest neighbor of each sample is the sample itself. Beginning in version 0.18, the default behavior will be to exclude each sample from being its own nearest neighbor. To maintain the current behavior, set include_self=True.
+  "behavior, set include_self=True.", DeprecationWarning)
+/usr/local/lib/python2.7/dist-packages/sklearn/cluster/hierarchical.py:440: UserWarning: the number of connected components of the connectivity matrix is 17 > 1. Completing it to avoid stopping the tree early.
+  connectivity, n_components = _fix_connectivity(X, connectivity)
+/usr/lib/python2.7/dist-packages/numpy/core/_methods.py:55: RuntimeWarning: Mean of empty slice.
+  warnings.warn("Mean of empty slice.", RuntimeWarning)
+/usr/lib/python2.7/dist-packages/numpy/core/_methods.py:67: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+-0.0085437864133
+-0.0120296379423
+-0.0147532859819
+-0.00347704093202
+-0.00843834315394
+-0.00874451452583
+-0.00849052948024
+-0.0102142745127
+-0.00360839971172
+-0.00943651157426
+mean -0.00877363242281
+/usr/local/lib/python2.7/dist-packages/sklearn/neighbors/graph.py:36: DeprecationWarning: The behavior of 'kneighbors_graph' when mode='connectivity' will change in version 0.18. Presently, the nearest neighbor of each sample is the sample itself. Beginning in version 0.18, the default behavior will be to exclude each sample from being its own nearest neighbor. To maintain the current behavior, set include_self=True.
+  "behavior, set include_self=True.", DeprecationWarning)
+/usr/local/lib/python2.7/dist-packages/sklearn/cluster/hierarchical.py:440: UserWarning: the number of connected components of the connectivity matrix is 17 > 1. Completing it to avoid stopping the tree early.
+  connectivity, n_components = _fix_connectivity(X, connectivity)
+/usr/lib/python2.7/dist-packages/numpy/core/_methods.py:55: RuntimeWarning: Mean of empty slice.
+  warnings.warn("Mean of empty slice.", RuntimeWarning)
+/usr/lib/python2.7/dist-packages/numpy/core/_methods.py:67: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+-0.0137800802276
+-0.00490595519257
+-0.0217903413539
+-0.00520970818974
+-0.0123896397108
+-0.00911671811698
+-0.0104452612201
+-0.0171664842123
+-0.0183025075132
+-0.00897992659577
+mean -0.0122086622333

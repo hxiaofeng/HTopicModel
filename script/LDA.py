@@ -77,8 +77,8 @@ def n_analysis():
 def sougou_main():
     LDA_analysis('../data/models/sougou_tfidf_matrix.mm',
             '../data/models/sougou.dict',
-            '../data/models/sougou_lda_10_model.md',
-            10)
+            '../data/models/sougou_lda_20_model.md',
+            20)
 
 
 if __name__ == '__main__':
@@ -86,8 +86,8 @@ if __name__ == '__main__':
                  # '../data/wiki_models/200k/wiki.dict',
                  # '../data/wiki_models/200k/wiki_lda_20_model.md',
     #              20)
-    # sougou_main()
-    terms_clustering('../data/models/sougou_lda_100_model.md',
-            '../data/lda_clusters/sougou_lda_100_n_12',
-            12)
+    sougou_main()
+   #  terms_clustering('../data/models/sougou_lda_100_model.md',
+            # '../data/lda_clusters/sougou_lda_100_n_12',
+   #          12)
     # n_analysis()

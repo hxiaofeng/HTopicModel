@@ -20,12 +20,12 @@ def k_means(matrix_fn, n_clusters=2):
     return matrix, kmeans.labels_
 
 
-def hierarchical_clustering(corpus_fn, n_clusters=2, linkage='ward'):
+def hierarchical_clustering(corpus_fn, n_clusters=2, linkage='complete'):
     corpus = corpora.MmCorpus(corpus_fn)
     corpus = matutils.corpus2csc(corpus, num_terms=corpus.num_terms).transpose()
     svd = TruncatedSVD(n_components=100)
     new_corpus = svd.fit_transform(corpus)
-    knn_graph = kneighbors_graph(new_corpus, 100, metric='euclidean')
+    knn_graph = kneighbors_graph(new_corpus, 10, metric='euclidean')
     agg = AgglomerativeClustering(n_clusters=n_clusters, affinity='euclidean', linkage=linkage, connectivity=knn_graph)
     agg.fit(new_corpus)
     return corpus, agg.labels_
@@ -45,9 +45,9 @@ def k_means_main():
 
 
 def hie_main():
-    corpus_fn = '../data/models/sougou_tfidf_matrix.mm'
-    matrix, labels = hierarchical_clustering(corpus_fn, 400, 'ward')
-    pickle.dump(labels, open('../data/compare/hie_ward_n_400_labels', 'wb'))
+    corpus_fn = '../data/jianwei/models/tfidf_matrix.mm'
+    matrix, labels = hierarchical_clustering(corpus_fn, 12, 'complete')
+    pickle.dump(labels, open('../data/jianwei/compare/hie_complete_n_12_labels', 'wb'))
     scores = []
     for i in range(10):
         score = metrics.silhouette_score(matrix, labels, metric='euclidean', sample_size=5000, n_jobs=10)

@@ -161,17 +161,16 @@ def run_token_s(args):
     for line in lines:
         text = line.strip().decode('utf8')
         sents = sent_tokenizer(text)
-        word_list = []
         for sentence in sents:
             if len(sentence.strip()) < 2:
                 continue
-            word_list += jieba.cut(sentence.strip())
+            word_list = list(jieba.cut(sentence.strip()))
             if word_list:
                 results.append(word_list)
         count += 1
         if count % 1000 == 0:
             print 'process ' + str(pid) + ': ' + str(count) + '/' +str(len(lines))
-    print 'process ' + str(pid) + 'end!'
+    print 'process ' + str(pid) + ' end!'
     return results
 
 
@@ -185,12 +184,12 @@ def paralleled_tokenizer_s(in_file, out_file, process_num=1):
         start += step
     pool = Pool(process_num)
     pids = range(len(lines_list))
-    results = pool.map(run_token, zip(lines_list, pids))
+    results = pool.map(run_token_s, zip(lines_list, pids))
     print 'writing data ...'
     out = open(out_file, 'wb')
     for r in results:
         for token_list in r:
-            out.write('\t'.join([token[0] for token in token_list]).encode('utf8') + '\n')
+            out.write('\t'.join(token_list).encode('utf8') + '\n')
     out.close()
     print 'end'
 
@@ -253,9 +252,9 @@ def token_files(in_dir, out_dir):
 if __name__ == '__main__':
     # merge_corpus()
     # merge_corpus_in_one_file()
-    # paralleled_tokenizer('../data/wikicorpus/parts/wiki_corpus_4', '../data/wikicorpus/token/wiki_corpus_4_p', 20)
-    tokenizer_per_sent('../data/wikicorpus/wiki_corpus', '../data/wikicorpus/wiki_corpus_token_s')
-    # paralleled_tokenizer_s('../data/wikicorpus/wiki_corpus', '../data/wikicorpus/wiki_corpus_token_s', 20)
+    paralleled_tokenizer('../data/jianwei/corpus', '../data/jianwei/corpus_token_p', 10)
+    # tokenizer_per_sent('../data/wikicorpus/wiki_corpus', '../data/wikicorpus/wiki_corpus_token_s')
+    # paralleled_tokenizer_s('../data/jianwei/corpus', '../data/jianwei/corpus_sent_token', 20)
     # wiki_corpus('../data/wikicorpus/wiki_chs', '../data/wikicorpus/wiki_corpus')
     # partition('../data/wikicorpus/wiki_corpus', 5)
     # token_files('../data/wikicorpus/parts', '../data/wikicorpus/token')

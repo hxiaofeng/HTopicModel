@@ -283,21 +283,21 @@ def wiki_main():
 
 def sougou_main():
     topics = hierarchical_topic_analyse_with_silhouette(
-            '../data/lda_clusters/sougou_lda_100_filter',
+            '../data/lda_clusters/sougou_lda_20_filter',
             '../data/models/sougou_word2vec_min5_model.md',
             True,
             3)
     tree = utilities.Tree(topics)
-    tree.save_to_txt('../data/topics/sougou_lda_100_d_3_topics_txt')
-    tree.save('../data/topics/sougou_lda_100_d_3_topics')
+    tree.save_to_txt('../data/topics/sougou_lda_20_d_3_topics_txt')
+    tree.save('../data/topics/sougou_lda_20_d_3_topics')
 
 
 def filter_main():
-    topics, useless = lda_terms_analysis('../data/models/sougou_lda_100_model.md', '../data/models/sougou_word2vec_min5_model.md')
-    tp_fn = '../data/lda_clusters/sougou_lda_100_filter'
+    topics, useless = lda_terms_analysis('../data/models/sougou_lda_20_model.md', '../data/models/sougou_word2vec_min5_model.md')
+    tp_fn = '../data/lda_clusters/sougou_lda_20_filter'
     pickle.dump(topics, open(tp_fn, 'wb'))
     utilities.Tree(topics).save_to_txt(tp_fn + '_txt')
-    ul_fn = '../data/lda_clusters/sougou_lda_100_useless'
+    ul_fn = '../data/lda_clusters/sougou_lda_20_useless'
     pickle.dump(useless, open(ul_fn, 'wb'))
     utilities.Tree(useless).save_to_txt(ul_fn + '_txt')
 

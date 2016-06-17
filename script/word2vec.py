@@ -22,4 +22,4 @@ def print_ms(model, word):
 
 
 if __name__ == '__main__':
-    word2vec_train('../data/wikicorpus/wiki_corpus_token_s', '../data/wiki_models/wiki_word2vec_min5_model.md')
+    word2vec_train('../data/jianwei/corpus_sent_token', '../data/jianwei/models/word2vec_min5_model.md')

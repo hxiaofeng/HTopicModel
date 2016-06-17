@@ -91,17 +91,19 @@ def wiki_main():
 
 
 def sougou_main():
-    clusters, new_corpus, labels = hierarchical_clustering('../data/topics/sougou_lda_100_d_3_topics',
+    clusters, new_corpus, labels = hierarchical_clustering('../data/topics/sougou_lda_20_d_3_topics',
             '../data/models/sougou.dict',
             '../data/models/sougou_tfidf_model.md',
             '../data/models/sougou_tfidf_matrix.mm',
             '../data/sougou_corpus_token_p')
-    out_dir = '../data/clusters/sougou_lda_100_d_3'
-    clusters_out_fn = '../data/doc_clusters/sougou_lda_100_d_3'
+    out_dir = '../data/clusters/sougou_lda_20_d_3'
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
+    clusters_out_fn = '../data/doc_clusters/sougou_lda_20_d_3'
     pickle.dump(clusters, open(clusters_out_fn, 'wb'))
-    newcorpus_fn = '../data/doc_clusters/sougou_lda_100_d_3_newcorpus'
+    newcorpus_fn = '../data/doc_clusters/sougou_lda_20_d_3_newcorpus'
     corpora.MmCorpus.serialize(newcorpus_fn, new_corpus)
-    labels_fn = '../data/doc_clusters/sougou_lad_100_d_3_labels'
+    labels_fn = '../data/doc_clusters/sougou_lad_20_d_3_labels'
     pickle.dump(labels, open(labels_fn, 'wb'))
     for cluster in clusters:
         filename = '_'.join([str(i) for i in cluster[:-1]])
@@ -113,8 +115,8 @@ def sougou_main():
 
 
 def eva_main():
-    corpus_fn = '../data/doc_clusters/sougou_lda_100_d_3_newcorpus'
-    labels_fn = '../data/doc_clusters/sougou_lad_100_d_3_labels'
+    corpus_fn = '../data/doc_clusters/sougou_lda_20_d_3_newcorpus'
+    labels_fn = '../data/doc_clusters/sougou_lad_20_d_3_labels'
     evaluate(corpus_fn, labels_fn)
 
 
